@@ -1,0 +1,5 @@
+<apex:page standardController="Case" extensions="Extention1,Extention2">
+  <apex:form >
+      <apex:commandButton value="Ok" action="{!submitIt}"/>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,23 @@
+<apex:page >
+<head>
+<script type="text/javascript">
+var widthObj = 0;
+function onLoad(obj) {
+    var temp = 0;
+    if(widthObj == 0) {
+        widthObj = obj.width;
+        obj.width = 100;
+    }
+    else {
+        temp = obj.width;
+        obj.width = widthObj ;
+        widthObj = temp;
+    }
+}
+</script>
+</head>
+    <body>
+        <apex:image url="{!URLFOR($Resource.vfimagetest, 'cats/kitten1.jpg')}" onclick="onLoad(this)"/>
+        <input type="button" onClick="onLoad()" value="Click" />
+    </body>
+</apex:page>

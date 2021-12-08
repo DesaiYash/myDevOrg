@@ -1,0 +1,16 @@
+<apex:page showHeader="false">
+    <script>
+    function redirectToMyCommunity() {
+        top.window.location.href = "https://yashdesaidev-developer-edition.ap7.force.com/dealer";
+    }
+    </script>
+    <body>
+        Please wait...
+        <apex:outputPanel style="background-color:white;">
+            <script>
+            redirectToMyCommunity();
+            </script>
+    	</apex:outputPanel>
+    </body>
+    
+</apex:page>

@@ -1,0 +1,42 @@
+<apex:page standardController="Account" extensions="AccountController" action="{!actionMethod}">
+  
+  <apex:form >
+  <apex:actionFunction name="callActionFunction" action="{!callActionFunction}" reRender="valuePannel"/>
+      <apex:commandButton value="Click" onclick="callActionFunction()"/>
+      <apex:selectList >
+          <apex:actionSupport event="onchange" action="{!callActionSupport}" reRender="valuePannel"/>
+          <apex:selectOption itemLabel="3" itemValue="3"></apex:selectOption>
+          <apex:selectOption itemLabel="4" itemValue="4"></apex:selectOption>
+      </apex:selectList>
+      <apex:outputPanel id="valuePannel">
+          {!sValueSet}
+      </apex:outputPanel>
+      <apex:pageBlock mode="inlineedit" >
+  
+          <apex:commandButton action="{!Save}" value="Save"/><br/>
+          Account Name: <apex:outputField value="{!Account.name}"/> //This field and all others it the pageblock are editible
+
+      </apex:pageBlock>
+      <apex:pageBlock >
+          Account Name: 
+          <apex:outputField value="{!Account.name}"/> //This field is not editible
+          <br/>
+          <br/>
+          <br/>
+          Account Name: 
+          <apex:outputField value="{!Account.name}">  //This field is editible
+              <apex:inlineEditSupport />
+          </apex:outputField>
+      </apex:pageBlock>
+      <apex:outputText value="{!count}"/>
+      <apex:pageBlock title="Accounts Table" id="accTbl" mode="inlineedit">
+          <apex:pageBlockTable value="{!accountList}" var="acc" title="Accounts">
+            <apex:column value="{!acc.Id}" />
+            <apex:column value="{!acc.Name}"/>
+          </apex:pageBlockTable>
+          <apex:commandButton value="Prev" action="{!prev}" reRender="accTbl" disabled="{!isPrevDis}"/>
+          <apex:commandButton value="Next" action="{!next}" reRender="accTbl" disabled="{!isNextDis}"/>          
+          <apex:outputLabel value="{!sMsg}"/>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

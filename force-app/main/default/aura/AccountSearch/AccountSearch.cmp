@@ -1,0 +1,14 @@
+<aura:component controller="AccountSearchController">
+	<aura:attribute name="searchText" type="string" />
+    <aura:attribute name="accList" type="Account[]" />
+    <ui:inputText label="Search" class="field" value="{!v.searchText}" change="{!c.searchAccount}"/>
+    <table border="1">
+   		<tr>
+        	<th>Name</th>
+        </tr>
+        <aura:iteration items="{!v.accList}" var="acc">
+            <tr><td>{!acc.Name}</td></tr>
+        </aura:iteration>
+    </table>
+    
+</aura:component>

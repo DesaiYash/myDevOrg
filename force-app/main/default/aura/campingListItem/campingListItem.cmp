@@ -1,0 +1,24 @@
+<aura:component >
+    <aura:attribute name="item" type="Camping_Item__c" />
+    <table>
+    	<tr>
+        	<td>Name: </td>
+            <td><ui:outputText value="{!v.item.Name}" /></td>
+        </tr>
+        <tr>
+        	<td>Price: </td>
+            <td><ui:outputCurrency value="{!v.item.Price__c}" /></td>
+        </tr>
+        <tr>
+        	<td>Quantity: </td>
+            <td><ui:outputNumber value="{!v.item.Quantity__c}" /></td>
+        </tr>
+        <tr>
+        	<td>Packed status: </td>
+            <td><ui:outputCheckbox aura:id="checkbox" value="{!v.item.Packed__c}" /></td>
+        </tr>
+        <tr colspan="2">
+        	<td><ui:button label="Packed!" press="{!c.packItem}" disabled="{!v.item.Packed__c}" /></td>
+        </tr>
+    </table>
+</aura:component>

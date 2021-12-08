@@ -1,0 +1,11 @@
+<apex:page controller="HTTPCalloutController" >
+    <apex:pageBlock >
+    	<apex:pageBlockSection title="Contry Code">
+        	<apex:pageBlockTable value="{!results.RestResponse.result}" var="res">
+                <apex:column value="{!res.name}" headerValue="Name"/>
+                <apex:column value="{!res.alpha2_code}"  headerValue="Alpha2 Code"/>
+                <apex:column value="{!res.alpha3_code}" headerValue="Alpha3 Code"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

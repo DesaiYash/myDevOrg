@@ -1,0 +1,15 @@
+<apex:page controller="NewCaseListController">
+    <apex:form >
+        <apex:pageBlock title="New Cases">
+            <apex:pageBlockSection columns="2">
+                <apex:repeat value="{!newCases}" var="case">
+                    <apex:outputLabel style="font-weight: bolder;">Case Id :</apex:outputLabel>
+                    <apex:outputText >{!case.Id}</apex:outputText>
+                    <apex:outputLabel style="font-weight: bolder;">Case Number :</apex:outputLabel>
+                    <apex:outputText >{!case.CaseNumber}</apex:outputText>
+                    
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

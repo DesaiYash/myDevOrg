@@ -1,0 +1,4 @@
+<aura:component >
+	<aura:handler name="compEvent" event="c:ParentEvent" action="{!c.handleBubbling}"/>
+    
+</aura:component>

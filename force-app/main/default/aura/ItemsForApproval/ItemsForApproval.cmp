@@ -1,0 +1,68 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" controller="ItemsForApprovalCntrl">
+	
+    <aura:attribute name="processInstanceList" type="ProcessInstanceWorkItem[]" />
+    <aura:attribute name="makeAnotherPayment" type="Boolean" default="false" />
+    <aura:attribute name="baseUrl" type="String" />
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <lightning:card title="Items To Approve">
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <div class="slds-truncate" title="RELATED TO">RELATED TO</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="APPROVER">APPROVER</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="ORIGINAL APPROVER">ORIGINAL APPROVER</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="SUBMITTED DATE">SUBMITTED DATE</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="SUBMITTED BY">SUBMITTED BY</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:if isTrue="{!v.processInstanceList != null}">
+            <aura:iteration items="{!v.processInstanceList}" var="item" >
+                <!--c:PaymentsMadeCmp paymentInstance="{!item}" paymentId="{!item.Id}" oppId="{!v.recordId}" /-->
+                <tr class="slds-text-title_caps">
+                    <td>
+                        <a href="#" data-role="button" data-value="{!item.Id}" onclick="{!c.openRecordDetail}">
+                        <ui:outputText value="{!item.ProcessInstance.TargetObject.Name}" />
+                        </a>
+                    </td>
+                    <td>
+                        <ui:outputText value="{!item.Actor.Name}" />
+                    </td>
+                    <td>
+                        <ui:outputText value="{!item.OriginalActor.Name}" />
+                    </td>
+                    <td>
+                        <ui:outputDateTime value="{!item.ProcessInstance.CreatedDate}" />
+                    </td>
+                    <td>
+                        <ui:outputText value="{!item.ProcessInstance.SubmittedBy.Name}" />
+                    </td>
+                </tr>
+            </aura:iteration>
+                
+                <aura:set attribute="else">
+                    <tr class="slds-text-title_caps">
+                        <td colspan="5">
+                    <ui:message title="Approvals" severity="inform" closable="false">
+                        No Pending Approvals!
+                    </ui:message>
+                            </td>
+                    </tr>
+                </aura:set>
+            </aura:if>
+        </tbody>
+            
+    </table>
+        </lightning:card>
+</aura:component>

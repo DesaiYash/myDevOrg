@@ -1,0 +1,125 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="TaskListLightningController">
+    
+    <aura:attribute type="sObject[]" name="taskList"/>
+    <aura:attribute type="sObject[]" name="taskListTemp"/>
+    <aura:attribute name="totalNumberOfRecords" type="Integer"/>
+    <aura:attribute name="isPaginationVisible" type="boolean" default="false"/>
+    <aura:attribute name="pageNumber" type="Integer"  default="1" />
+    <aura:attribute name="maxPage" type="Integer" default="1" />
+    <aura:attribute type="String" name="sortField" />
+    <aura:attribute type="Boolean" name="sortAsc" default="false"/>
+    <aura:attribute type="Boolean" name="Spinner" default="false"/>
+    
+	<aura:handler name="init" value="{!this}" action="{!c.fetchTaskList}"/>
+    <aura:handler name="change"	value="{!v.pageNumber}"	action="{!c.renderPage}" />
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+           <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+             <span class="slds-assistive-text">Loading</span>
+             <div class="slds-spinner__dot-a"></div>
+             <div class="slds-spinner__dot-b"></div>
+           </div>
+        </div>
+     </aura:if>
+    
+    
+        <div class="slds-page-header">
+            <div class="slds-media">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-opportunity" title="Task List">
+                        <span class="slds-icon slds-page-header__icon" >
+                            <lightning:icon iconName="custom:custom31" size="large" alternativeText="Task List"/>
+                        </span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Task List">Task List</h1>  
+                    <ui:inputSelect class="selectOptionClass" aura:id="filterByList" change="{!c.filterBy}">                        
+                        <ui:inputSelectOption label="My Task" text="true" />
+                        <ui:inputSelectOption label="Created by me and assigned to others" text="false" />
+                    </ui:inputSelect>
+                </div>
+            </div>
+        </div>
+    	<div class="slds">
+        <table class="slds-table slds-table--bordered slds-table--striped">
+            <thead>
+                <tr>
+                    <th class="slds-is-sortable slds-text-title" scope="col">
+                        <a href="javascript:void(0);" class="slds-th__action slds-text-link_reset" tabindex="0">
+                            <span class="slds-truncate" title="Subject" onclick="{!c.SortBySubject}">Subject
+                                <aura:if isTrue="{!v.sortField=='Subject'}">
+                                    <span>
+                                        <aura:if isTrue="{!v.sortAsc}">
+                                            &#8595;
+                                            <aura:set attribute="else">
+                                                &#8593;
+                                            </aura:set>
+                                        </aura:if>
+                                    </span>
+                                </aura:if>
+                            </span>
+                        </a>
+                    </th>
+                    <!--<th scope="col"><span class="slds-truncate">Subject</span></th>-->
+                    <!--<th scope="col"><span class="slds-truncate">Priority</span></th>-->
+                    <th class="slds-is-sortable slds-text-title" scope="col">
+                        <a href="javascript:void(0);" class="slds-th__action slds-text-link_reset" tabindex="0">
+                            <span class="slds-truncate" title="Priority" onclick="{!c.SortByPriority}">Priority
+                                <aura:if isTrue="{!v.sortField=='Priority'}">
+                                    <span>
+                                        <aura:if isTrue="{!v.sortAsc}">
+                                            &#8595;
+                                            <aura:set attribute="else">
+                                                &#8593;
+                                            </aura:set>
+                                        </aura:if>
+                                    </span>
+                                </aura:if>
+                            </span>
+                        </a>
+                    </th>
+                    <th scope="col"><span class="slds-truncate">Due Date</span></th>
+                    <th scope="col"><span class="slds-truncate">Case</span></th>
+                    <th scope="col"><span class="slds-truncate">Assigned To</span></th>
+                    <th class="slds-is-sortable slds-text-title" scope="col">
+                        <a href="javascript:void(0);" class="slds-th__action slds-text-link_reset" tabindex="0">
+                            <span class="slds-truncate" title="Status" onclick="{!c.SortByStatus}">Status
+                                <aura:if isTrue="{!v.sortField=='Status'}">
+                                    <span>
+                                        <aura:if isTrue="{!v.sortAsc}">
+                                            &#8595;
+                                            <aura:set attribute="else">
+                                                &#8593;
+                                            </aura:set>
+                                        </aura:if>
+                                    </span>
+                                </aura:if>
+                            </span>
+                        </a>
+                    </th>
+                    <!--<th scope="col"><span class="slds-truncate">Status</span></th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.taskListTemp}" var="item">
+                    <tr>
+                        <td><a data-objId="{!item.objTask.Id}" href="javascript:void(0)" onclick="{!c.redirectToDetail}">{!item.objTask.Subject}</a></td>
+                        <td>{!item.objTask.Priority}</td>
+                        <td>{!item.objTask.ActivityDate}</td>
+                        <td><a data-objId="{!item.objCase.Id}" href="javascript:void(0)" onclick="{!c.redirectToDetail}">{!item.objCase.CaseNumber}</a></td>
+                        <td>{!item.objTask.Owner.Name}</td>                        
+                        <td>{!item.objTask.Status}</td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+    <footer class="slds-card__footer--small slds-text-align_center ">
+        <aura:if isTrue="{!and(v.isPaginationVisible,v.taskList.length > 10)}">
+            <c:GenericPaginationComponent currentPageNumber="{!v.pageNumber}" 
+                                                maxPageNumber="{!v.maxPage}" />
+        </aura:if>
+    </footer>
+    
+</aura:component>

@@ -1,0 +1,9 @@
+<aura:component implements="force:appHostable">
+    <lightning:recordForm
+        recordId="0010I00002CGNflQAH"
+        objectApiName="Account"
+        layoutType="Full"
+        columns="2"
+        mode="view" />
+	
+</aura:component>

@@ -1,0 +1,29 @@
+<apex:page >
+
+<script>
+    function callService() {
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        //xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            console.log(this.responseText);
+            document.getElementById("pannel").innerHTML = this.responseText;
+            var jsonRes = JSON.parse(this.responseText);
+            alert(jsonRes.status);
+          }
+        });
+
+        xhr.open("GET", "https://api.postcodes.io/postcodes/EX165BL");
+        //xhr.setRequestHeader("cache-control", "no-cache");
+        //xhr.setRequestHeader("postman-token", "b2d36881-d293-0d79-7ac6-9a59db50ada8");
+        //xhr.setRequestHeader("Access-Control-Allow-Origin", "https://yashdesai-dev-ed--c.ap7.visual.force.com");
+
+        xhr.send(data);
+    }
+</script>
+  <button onclick="callService();">Call</button>
+    <div id="pannel">
+    </div>
+</apex:page>

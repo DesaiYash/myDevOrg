@@ -1,0 +1,39 @@
+<apex:page standardController="Account" extensions="OpportunityDetailPageController" action="{!getOpportunity}">
+   <script>    
+    function deleteConfirmation() {
+    	if(confirm('Are you sure, you want to delete?')) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }    
+    </script>
+    <apex:form >
+    <apex:sectionHeader title="Opportunity Details" subtitle="Opportunity List"/>
+    <apex:pageBlock >
+    	<apex:pageBlockSection title="Account Details">
+        	<apex:outputText value="{!ownerName}" label="Owner"/>
+            <apex:outputText value="{!address}" label="Address"/>
+            <apex:outputField value="{!Account.Name}"/>
+            <apex:outputField value="{!Account.Phone}"/>
+            <apex:outputField value="{!Account.AccountNumber}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    <apex:pageBlock >
+    	<apex:pageBlockSection title="Opportunity Detail">
+        	<apex:pageBlockTable value="{!listOpp}" var="opp" id="oppTbl">
+                <apex:column value="{!opp.Name}"/>
+                <apex:column value="{!opp.Type}"/>
+                <apex:column value="{!opp.Amount}"/>
+                <apex:column value="{!opp.StageName}"/>
+                <apex:column ><apex:outputLink value="{!'/'+opp.id}" target="_blank" >View</apex:outputLink></apex:column>
+                <apex:column ><apex:commandLink action="{!deleteOpp}" onclick="return deleteConfirmation();" value="Delete">
+                    <apex:param name="oppId" value="{!opp.Id}" assignTo="{!oppSelectedId}"/>
+                    </apex:commandLink></apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+   </apex:form>
+</apex:page>

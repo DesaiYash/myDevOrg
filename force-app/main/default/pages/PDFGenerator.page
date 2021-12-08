@@ -1,0 +1,5 @@
+<apex:page renderAs="PDF" >
+    <h1>
+        This is PDF.
+    </h1>
+</apex:page>

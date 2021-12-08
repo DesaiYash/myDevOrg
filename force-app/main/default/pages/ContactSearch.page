@@ -1,0 +1,15 @@
+<apex:page standardController="Contact" extensions="ContactSearchClass">
+    <apex:pageBlock >
+        <apex:pageBlockSection collapsible="true" title="Search List">
+            <apex:pageBlockTable value="{! listContact }" var="contact">
+                <apex:column headerValue="ID">{! contact.Id}</apex:column>
+                <apex:column value="{! contact.Name}" headerValue="Name"/>
+                <apex:column value="{! contact.Phone}" headerValue="Phone"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        <apex:form >
+            <apex:inputField value="{!contactObj.Custom_Account__c}"/>
+            <apex:outputField value="{!contactObj.Custom_Account__c}"/>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

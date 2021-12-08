@@ -1,0 +1,46 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global" controller="QuestionAnswerController">
+    <aura:attribute name="listOfQuestion" type="QuestionAnswerController.WrapperAnswer" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--div class="slds-table-header-fixed_container" style="height:300px;">
+        <div class="slds-scrollable_y" style="height:100%;"-->
+    <table style="width:100%" >
+        <thead>
+            <tr>
+                <th scope="col"><span class="slds-truncate">Sr No.</span></th>
+                <th scope="col"><span class="slds-truncate">Question</span></th>
+                <th scope="col"><span class="slds-truncate">Check</span></th>
+                <th scope="col"><span class="slds-truncate">Comment</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.listOfQuestion}" var="question" indexVar="index">
+                <tr style="background-color: #fbedea;">
+                    <td>{!index + 1}</td>
+                    <td class="slds-cell-wrap" style="width:25%;" colspan="3">{!question.sParentQuestion}<span style="{! 'color:' + question.sColor + ';font-weight: bold;padding-left:25%;'}">({!question.answerRatting} out of {!question.questionRatting})</span>
+                    	<lightning:buttonIcon iconName="utility:new" size="large" variant="container" alternativeText="Create Measure" title="Create Measure" />
+                    </td>                   
+                </tr>
+                <aura:iteration items="{!question.answerList}" var="question1" indexVar="index1">
+                    <tr>
+                        <td>{!index + 1}.{!index1 + 1}</td>
+                        <td class="slds-cell-wrap" style="width:25%;">{!question1.Question__r.Name}</td>
+                        <td>
+                            <lightning:select name="select1" label="How many tickets?" variant="label-hidden" value="{!question1.Check__c}">
+                                <option value="">None</option>
+                                <option value="Ok">Ok</option>
+                                <option value="Not Ok">Not Ok</option>
+                            </lightning:select>
+                        </td>
+                        <td><lightning:input label="Name" name="myname" value="{!question1.Name}" variant="label-hidden" /></td>
+                    </tr>
+                </aura:iteration>
+            </aura:iteration>                
+            <tr>
+                <td colspan="7" style="text-align:center"><lightning:button  variant="brand" label="Save" title="Save" onclick="{! c.handleClick }" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <!--</div>
+    </div>-->
+</aura:component>
