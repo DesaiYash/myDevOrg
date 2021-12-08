@@ -1,0 +1,4 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId">
+	<aura:handler name="compEvent" event="c:ParentEvent" action="{!c.handleBubbling}" />
+    <c:SubChildComponent/>
+</aura:component>

@@ -1,0 +1,7 @@
+.THIS table,.THIS th,.THIS td, .THIS tr {
+  border: 1px solid grey;
+}
+
+.THIS td, .THIS th {
+    padding: 1%;
+}

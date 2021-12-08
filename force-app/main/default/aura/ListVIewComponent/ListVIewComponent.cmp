@@ -1,0 +1,13 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" controller="SessionManagerController">
+<lightning:listView aura:id="listViewAccounts"
+                    objectApiName="Account"
+                    listName="AllAccounts"
+                    rows="5"
+                    showActionBar="true"
+                    enableInlineEdit="true"
+                    showRowLevelActions="true"
+                    showSearchBar="true"
+                    />
+    <lightning:button onclick="{! c.setSesstionValue }" label="Set Value" />
+    <lightning:button onclick="{! c.getSesstionValue }" label="Set Value" />
+</aura:component>

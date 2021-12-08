@@ -1,0 +1,34 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<aura:attribute name="bodyData" type="String"  default="" />
+    <aura:attribute name="published" type="boolean"  default="true" />
+    <aura:attribute type="Boolean" name="Spinner" default="false"/>
+    
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <table class="slds-table">
+        <tr>
+            <td class="slds-is-sortable slds-text-title" scope="col">
+                <c:QucikTextLibrary sObjectAPIName="Contact" recordId="0032800000O94Sk" quickTextClicked="{!c.setMsg}" />
+            	<lightning:textarea name="bodyD" value="{!v.bodyData}" label="Body" maxlength="300" required="true" />
+            </td>
+        </tr>
+        <tr>
+            <td class="slds-is-sortable slds-text-title" scope="col">
+            	<ui:inputCheckbox aura:id="published" label="Public" value="{!v.published}"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="slds-is-sortable slds-text-title" scope="col" style="text-align:right;">
+            	<lightning:button variant="brand" label="Submit" onclick="{! c.createCaseComment }" />
+            </td>
+        </tr>
+    </table>
+    
+</aura:component>

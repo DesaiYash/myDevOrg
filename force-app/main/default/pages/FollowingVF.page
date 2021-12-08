@@ -1,0 +1,29 @@
+<apex:page controller="FollowingController">
+  <apex:sectionHeader title="Follow" description="Select users from list"/>
+  <apex:form >
+      <apex:pageBlock >
+      	<apex:pageBlockSection >
+        	<apex:pageBlockTable value="{!userList}" var="us">
+                <apex:column >
+                    <apex:inputCheckbox value="{!us.isSelected}" />
+                </apex:column>
+                <apex:column value="{!us.userObj.Name}" />
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        <apex:commandButton action="{!save}" value="Add" />
+      	<apex:commandButton action="{!cancel}" value="Cancel" />
+      </apex:pageBlock>
+      
+      <apex:pageBlock >
+      	<apex:pageBlockSection >
+        	<apex:pageBlockTable value="{!followedUserList}" var="us">
+                <apex:column >
+                    <apex:inputCheckbox value="{!us.isSelected}" />
+                </apex:column>
+                <apex:column value="{!us.userObj.Name}" />
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        <apex:commandButton action="{!unfollow}" value="Unfollow" />
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

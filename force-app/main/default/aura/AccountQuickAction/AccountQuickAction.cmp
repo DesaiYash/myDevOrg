@@ -1,0 +1,29 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="AccountQuickActionController">
+    
+    <aura:attribute name="isSystemAdmin" type="String" default="0"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <aura:if isTrue="{!v.isSystemAdmin == '1'}">
+        <div class="userCreateError">
+            <ui:message title="Error" severity="error" closable="true">
+                You don't have access to this.
+            </ui:message>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.isSystemAdmin == '2'}">
+        <div class="slds-form--stacked">
+                    
+            <div class="slds-form-element">
+                Are you sure you want to create account in oracle?
+            </div>
+            
+            <div class="slds-form-element">
+                <!--<ui:button class="slds-button slds-button-neutral" press="{!c.cancel}" label="Cancel" />-->
+                <br></br>
+                <ui:button class="slds-button slds-button--brand" press="{!c.updateAccount}" label="Yes" />
+            </div>
+        </div>
+    </aura:if>
+    
+</aura:component>

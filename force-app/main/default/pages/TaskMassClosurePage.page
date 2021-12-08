@@ -1,0 +1,16 @@
+<apex:page controller="TaskMassClosure">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+            	<apex:commandButton value="Close All" action="{! closeAllTask }" reRender="task_section" styleClass="buttonWidth"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:pageBlockTable value="{! listOfTask }" var="task" id="task_section" rendered="true">
+                    <!-- <apex:column ><apex:inputCheckbox value="{! task.Id }"/></apex:column> -->
+                    <apex:column headerValue="Subject" value="{! task.Subject }"/>
+                    <apex:column headerValue="Status" value="{! task.Status }"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

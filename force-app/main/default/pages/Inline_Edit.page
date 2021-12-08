@@ -1,0 +1,49 @@
+<apex:page standardController="Case" extensions="InlineEditExtn">   
+<A HREF="#" onClick="launchTab();return false">Click here to open a new primary tab</A>
+ 
+   <apex:detail subject="{!case.Id}"  relatedList="true" inlineEdit="{! isInlineEditEnable }"/>  
+   <apex:includeScript value="/support/console/35.0/integration.js"/>
+    <script type="text/javascript">
+    
+    var tabId = '';
+    var objectId = '';
+        
+            var opentab = function(result){ 
+            //sforce.console.openSubtab(result.id,'apex/UCHS_Inline_Edit_Case?id=' + '{!Case.Id}' + '&inContextPane=true', true, 'Subtab Name', null); 
+            //sforce.console.openPrimaryTab(result.id,'apex/UCHS_Inline_Edit_Case?id=' + '{!Case.Id}' + '&inContextPane=true', true)
+                tabId = result.id;
+                sforce.console.getEnclosingPrimaryTabObjectId(showObjectId);
+            }; 
+            
+         function launchTab(){
+             //sforce.console.getEnclosingPrimaryTabId(opentab);
+             var currentCaseId = '{!Case.Id}';
+             try {
+                srcSelf('/'+ currentCaseId +'?isdtp=vw');
+             }catch(e){alert('Error: '+e);}
+         }
+         
+         var showObjectId = function showObjectId(result) {
+             
+            alert ('Object ID1: ' + result.id);
+            objectId = result.id;
+            sforce.console.focusPrimaryTabById(tabId, openTheCase);
+            
+            
+        };
+        
+        var closeTheCase = function(result) {
+            //sforce.console.closeTab(tabId, openTheCase);
+            //alert('Open');
+        };
+        
+        var openTheCase = function(result) {
+        alert('open case');
+            try {
+                srcSelf('/'+ objectId +'?isdtp=vw');
+             }catch(e){alert('Error: '+e);}
+        };
+
+        
+    </script>
+</apex:page>

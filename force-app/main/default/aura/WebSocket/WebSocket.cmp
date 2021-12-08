@@ -1,0 +1,15 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="message" type="String" />
+    <aura:attribute name="responseMsg" type="List" />
+    <aura:attribute name="webSocketObj" type="Object" />
+    <aura:attribute name="isConnected" type="boolean" default="false" />
+    <lightning:input value="{! v.message }" label="Message" disabled="{! !v.isConnected}" />
+    <lightning:button label="connect" onclick="{! c.connectSocket }" disabled="{!v.isConnected}" />
+    <lightning:button label="send" onclick="{! c.sendMessage }" disabled="{! !v.isConnected}" />
+    <lightning:button label="Disconnect" onclick="{! c.disConnectSocket }" disabled="{! !v.isConnected}" />
+    <ul>
+    	<aura:iteration items="{!v.responseMsg}" var="item">
+            <li>{!item}</li>
+        </aura:iteration>
+    </ul>
+</aura:component>
