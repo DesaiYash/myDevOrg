@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="Search">
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" value={searchQuery} onchange={searchChanged}></lightning-input>
+        </div>
+        <lightning-button label="Search" title="Non-primary action" onclick={searchClicked} class="slds-m-left_x-small"></lightning-button>
+    </lightning-card>
+</template>
