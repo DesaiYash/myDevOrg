@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="Accounts" icon-name="standard:account">
+        <table>
+            <tr>
+                <th>Select</th>
+                <th>Name</th>
+            </tr>
+            <template for:each={accounts} for:item="account">
+                
+                    <tr key={account.Id}>
+                        <td><lightning-input type="checkbox" onchange={handleChecked} value={account.Id}></lightning-input></td>
+                        <td>{account.Name}</td>
+                    </tr>
+            
+            </template>
+        </table>
+        <lightning-button label="save" onclick={saveTheSelection}></lightning-button>
+        <lightning-formatted-text value={selectedIds}></lightning-formatted-text>
+        <lightning-button label="Are you getting bored? Click me...." onclick={getSomeSuggetions}></lightning-button><br>
+        <template if:true={responseObjs.activity}>
+            Activity : <lightning-formatted-text value={responseObjs.activity}></lightning-formatted-text><br>
+            Type : <lightning-formatted-text value={responseObjs.type}></lightning-formatted-text><br>
+            Participants : {responseObjs.participants}<br>
+            Price : {responseObjs.price}<br>
+            Link : <a href={responseObjs.link}>{responseObjs.link}</a><br>
+            Key : <lightning-formatted-text value={responseObjs.key}></lightning-formatted-text><br>
+            Accessibility : {responseObjs.accessibility}
+        </template>   
+    </lightning-card>
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+    </template>
+</template>
